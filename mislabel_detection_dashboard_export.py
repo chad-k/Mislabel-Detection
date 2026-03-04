@@ -477,23 +477,23 @@ if st.session_state.df_analysis is None:
     )
     
     # Allow override
-    override = st.checkbox(
-        "Override contamination rates?",
-        value=False,
-        help="Enable to manually set contamination rates per part type"
-    )
+    #override = st.checkbox(
+    #    "Override contamination rates?",
+    #    value=False,
+    #    help="Enable to manually set contamination rates per part type"
+    #)
     
-    if override:
-        st.write("Set contamination rate for each part type (2-30%):")
-        for part in contamination_map:
-            contamination_map[part] = st.slider(
-                f"{part}",
-                min_value=0.02,
-                max_value=0.30,
-                value=contamination_map[part],
-                step=0.01,
-                format="%.2f"
-            )
+    #if override:
+    #    st.write("Set contamination rate for each part type (2-30%):")
+    #    for part in contamination_map:
+    #        contamination_map[part] = st.slider(
+    #            f"{part}",
+    #            min_value=0.02,
+    #            max_value=0.30,
+    #            value=contamination_map[part],
+    #            step=0.01,
+    #            format="%.2f"
+    #        )
     
     # ===== ANOMALY DETECTION (SECOND PASS WITH OPTIMAL CONTAMINATION) =====
     st.subheader("Running Anomaly Detection...")
@@ -755,3 +755,4 @@ if len(suspects) > 0:
         st.dataframe(summary)
     except:
         pass
+
