@@ -17,6 +17,14 @@ st.set_page_config(page_title="Mislabel Detection (Enhanced)", layout="wide")
 
 st.title("Manufacturing Mislabel Detection (Enhanced)")
 
+# ===== CONTACT INFO =====
+st.sidebar.divider()
+st.sidebar.info(
+    "**Questions or Issues?**\n\n"
+    "📧 Contact: [chad@hertzler.com](mailto:chad@hertzler.com)"
+)
+st.sidebar.divider()
+
 # ===== HELP SECTION =====
 with st.expander("❓ How This App Works (Click to Expand)", expanded=False):
     st.markdown("""
