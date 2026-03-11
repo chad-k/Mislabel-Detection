@@ -581,6 +581,7 @@ if len(df_analysis) > 0:
     
     plt.tight_layout()
     st.pyplot(fig)
+    plt.close(fig)
 
 # ===== EXPLAIN ROW (WITH MISLABELING SUGGESTION) =====
 st.subheader("Explain a Row (With Mislabeling Detection)")
@@ -629,6 +630,7 @@ if part_ids:
             plt.xticks(rotation=45, ha='right')
             plt.tight_layout()
             st.pyplot(fig)
+            plt.close(fig)
         
         # ===== MISLABELING SUGGESTION =====
         if row['AnomalyFlag'] == "Anomaly" and row_idx in mislabeling_suggestions:
@@ -704,6 +706,7 @@ if len(feat_cols) >= 2 and len(display_df) > 0:
     ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=9)
     plt.tight_layout()
     st.pyplot(fig)
+    plt.close(fig)
     
     if len(anom) > 0:
         st.caption(f"🔴 {len(anom)} anomalies shown as red X marks | ✓ {len(norm):,} normal points ({sample_info})")
@@ -754,6 +757,7 @@ if len(feat_cols) >= 2 and len(display_df) > 1:
             ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=9)
             plt.tight_layout()
             st.pyplot(fig)
+            plt.close(fig)
             
             total_variance = pca.explained_variance_ratio_[0] + pca.explained_variance_ratio_[1]
             if len(anom_pca) > 0:
@@ -800,6 +804,7 @@ if len(display_df) > 1 and len(feat_cols) > 0:
                 
                 plt.tight_layout()
                 st.pyplot(fig)
+                plt.close(fig)
                 
                 # Show summary statistics
                 stats_data = []
@@ -834,6 +839,7 @@ if len(feat_cols) >= 2 and len(display_df) > 1:
             sns.heatmap(corr, annot=True, cmap="coolwarm", center=0, square=True, ax=ax, fmt=".2f")
             plt.tight_layout()
             st.pyplot(fig)
+            plt.close(fig)
         else:
             st.warning("Not enough valid data for correlation matrix")
     except Exception as e:
