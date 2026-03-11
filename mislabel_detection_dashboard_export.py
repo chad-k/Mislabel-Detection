@@ -17,6 +17,62 @@ st.set_page_config(page_title="Mislabel Detection (Enhanced)", layout="wide")
 
 st.title("Manufacturing Mislabel Detection (Enhanced)")
 
+# ===== HELP SECTION =====
+with st.expander("❓ How This App Works (Click to Expand)", expanded=False):
+    st.markdown("""
+    ### What This App Does
+    This app detects **anomalous parts** within each declared part type using multivariate anomaly detection.
+    It then suggests which **other part types** a flagged part might actually be (mislabeling detection).
+    
+    ### Three-Step Workflow
+    
+    **Step 1: Map Your Columns**
+    - Select which column contains Part IDs (unique identifier for each part)
+    - Select which column contains Part Numbers/Labels (the declared type: PN-A, PN-B, etc.)
+    - Select 3+ numeric features (measurements, parameters, etc.) to analyze
+    - The app shows data quality so you can pick high-completeness columns
+    
+    **Step 2: Run Analysis**
+    - Click "Analyze Data" to detect anomalies
+    - The app automatically determines how many parts should be flagged as anomalous (5-15% typically)
+    - For each part type, anomalies are detected independently
+    
+    **Step 3: Explore Results**
+    - See which parts are flagged as anomalous
+    - For each anomalous part, see **mislabeling suggestions** - which other part type it might actually be
+    - View diagnostics, distributions, and correlations
+    
+    ### Key Features
+    
+    🤖 **Smart Contamination Detection** - Automatically decides what % of parts should be flagged based on your data
+    
+    🔍 **Cross-Type Mislabeling** - Shows likelihood that a flagged part actually belongs to a different part type
+    
+    📊 **Rich Visualizations** - Distributions, PCA, correlations, feature importance
+    
+    📥 **Export Results** - Download complete analysis or just the anomalies
+    
+    ### Example
+    ```
+    You declare a part as PN-A, but:
+    - Measurement 1 is 8.5 (PN-A typically 10.0)
+    - Measurement 2 is 6.3 (PN-A typically 6.0)
+    
+    The app flags it as anomalous WITHIN PN-A.
+    Then it checks: "Does this fit PN-B better?" 
+    If measurements match PN-B's pattern, it suggests: 
+    ⚠️ POSSIBLE MISLABEL: likely PN-B not PN-A (88% likelihood)
+    ```
+    
+    ### Tips
+    - Start with **Demo Data** to understand how it works
+    - Select features with **>90% data completeness** (shown in Step 1)
+    - Anomalies detected **per part type** - each type analyzed separately
+    - Download results to investigate in Excel
+    """)
+
+st.divider()
+
 
 # ===== DYNAMIC CONTAMINATION DETECTION =====
 def estimate_optimal_contamination_per_type(anomaly_scores_dict: dict) -> tuple[dict, str]:
