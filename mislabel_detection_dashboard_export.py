@@ -313,7 +313,7 @@ completeness_df = pd.DataFrame(col_completeness).sort_values("Complete %", ascen
 # Show column quality info
 with st.expander("📊 Column Quality Analysis", expanded=True):
     st.write("**⚠️ Select features with HIGH data completeness to avoid losing data**")
-    st.dataframe(completeness_df, width='stretch')
+    st.dataframe(completeness_df, use_container_width=True)
 
 col1, col2 = st.columns(2)
 
@@ -349,12 +349,12 @@ with col2:
     
     if len(low_quality) > 0:
         st.warning(f"⚠️ {len(low_quality)} selected feature(s) have <80% data - may lose many rows!")
-        st.dataframe(low_quality, width='stretch')
+        st.dataframe(low_quality, use_container_width=True)
 
 # ===== ANALYSIS BUTTON =====
 st.header("Step 2: Run Analysis")
 
-analysis_ready = st.button("▶ Analyze Data", type="primary", width='stretch')
+analysis_ready = st.button("▶ Analyze Data", type="primary", use_container_width=True)
 
 if analysis_ready:
     if len(feat_cols) < 3:
@@ -396,7 +396,7 @@ if st.session_state.df_analysis is None:
             "Null Count": [df_analysis[col].isna().sum() for col in feat_cols],
             "Sample": [str(df_analysis[col].iloc[0])[:50] if len(df_analysis) > 0 else "N/A" for col in feat_cols]
         })
-        st.dataframe(diag_before, width='stretch')
+        st.dataframe(diag_before, use_container_width=True)
         
         # Check for ANY missing values
         missing_per_col = {col: df_analysis[col].isna().sum() for col in feat_cols}
@@ -416,7 +416,7 @@ if st.session_state.df_analysis is None:
             "NaN Count": [df_analysis[col].isna().sum() for col in feat_cols],
             "Sample": [str(df_analysis[col].iloc[0])[:50] if len(df_analysis) > 0 else "N/A" for col in feat_cols]
         })
-        st.dataframe(diag_after, width='stretch')
+        st.dataframe(diag_after, use_container_width=True)
     
     # Drop rows with missing values in features
     rows_before = len(df_analysis)
@@ -543,7 +543,7 @@ with col_e2:
         help="Download only flagged anomalies"
     )
 
-if st.sidebar.button("🔄 Reset", width='stretch', help="Clear analysis and start over"):
+if st.sidebar.button("🔄 Reset", use_container_width=True, help="Clear analysis and start over"):
     st.session_state.analysis_complete = False
     st.session_state.df_analysis = None
     st.rerun()
@@ -558,7 +558,7 @@ st.subheader(f"Data ({len(display_df)} rows)")
 if len(display_df) == 0:
     st.error("❌ No anomalies found")
 else:
-    st.dataframe(display_df, width='stretch', height=500)
+    st.dataframe(display_df, use_container_width=True, height=500)
 
 # ===== ANOMALY SCORE DISTRIBUTION =====
 if len(df_analysis) > 0:
@@ -622,7 +622,7 @@ if part_ids:
         }).sort_values("|Z|", ascending=False)
         
         st.subheader("Feature Z-Scores (vs. Declared Type)")
-        st.dataframe(exp_df.style.format({c: "{:.3f}" for c in exp_df.columns[1:]}), width='stretch')
+        st.dataframe(exp_df.style.format({c: "{:.3f}" for c in exp_df.columns[1:]}), use_container_width=True)
         
         fig, ax = plt.subplots(figsize=(10, 4))
         valid = exp_df[np.isfinite(exp_df["|Z|"])]
@@ -658,7 +658,7 @@ if part_ids:
                     for s in sorted_suggestions
                 ])
                 
-                st.dataframe(suggestion_df, width='stretch')
+                st.dataframe(suggestion_df, use_container_width=True)
                 
                 if len(sorted_suggestions) > 0:
                     best_match = sorted_suggestions[0]
@@ -673,7 +673,7 @@ if part_ids:
                             {"Feature": feat, "Z-Score": z_str}
                             for feat, z_str in best_match[1]['z_scores_by_feature'].items()
                         ])
-                        st.dataframe(z_breakdown, width='stretch')
+                        st.dataframe(z_breakdown, use_container_width=True)
                     else:
                         st.info("Part is anomalous but doesn't strongly match any other type. May be defective.")
             else:
@@ -835,7 +835,7 @@ if len(display_df) > 1 and len(feat_cols) > 0:
                     })
                 
                 st.caption("Summary Statistics:")
-                st.dataframe(pd.DataFrame(stats_data), width='stretch')
+                st.dataframe(pd.DataFrame(stats_data), use_container_width=True)
         else:
             st.warning("No valid data for distribution plot")
     except Exception as e:
