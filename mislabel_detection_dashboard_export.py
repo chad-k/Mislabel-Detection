@@ -697,9 +697,9 @@ if len(feat_cols) >= 2 and len(display_df) > 0:
     
     if len(norm_sampled) > 0:
         sns.scatterplot(data=norm_sampled, x=feat_cols[0], y=feat_cols[1], hue=num_col, 
-                      ax=ax, palette="Set2", s=80, alpha=0.7, edgecolor="white")
+                      ax=ax, palette="Set2", s=40, alpha=0.7, edgecolor="black")
     if len(anom) > 0:
-        ax.scatter(anom[feat_cols[0]], anom[feat_cols[1]], color='red', s=80, marker='X', 
+        ax.scatter(anom[feat_cols[0]], anom[feat_cols[1]], color='red', s=40, marker='X', 
                   edgecolors='darkred', linewidth=2, alpha=0.95, label='ANOMALY', zorder=5)
     
     ax.set_title(f"{feat_cols[0]} vs {feat_cols[1]} {sample_info}")
@@ -746,9 +746,9 @@ if len(feat_cols) >= 2 and len(display_df) > 1:
             
             if len(norm_pca_sampled) > 0:
                 sns.scatterplot(data=norm_pca_sampled, x="PC1", y="PC2", hue=num_col, ax=ax, 
-                               palette="Set2", s=80, alpha=0.7, edgecolor="white")
+                               palette="Set2", s=40, alpha=0.7, edgecolor="black")
             if len(anom_pca) > 0:
-                ax.scatter(anom_pca["PC1"], anom_pca["PC2"], color='red', s=80, marker='X', 
+                ax.scatter(anom_pca["PC1"], anom_pca["PC2"], color='red', s=40, marker='X', 
                           edgecolors='darkred', linewidth=2, alpha=0.95, label='ANOMALY', zorder=5)
             
             ax.set_title(f"PCA (2D Projection) {sample_info}")
@@ -859,4 +859,5 @@ if len(suspects) > 0:
         st.dataframe(summary)
     except:
         pass
+
 
